@@ -1,26 +1,30 @@
 <!doctype html>
 <html>
 <head>
-<title>Demo Cylindo</title>
 <link rel="stylesheet" type="text/css" 
 href="https://viewer.cylindo.com/v4/viewer.min.css">
 <script src="https://viewer.cylindo.com/v4/viewer.min.js"></script>
 </head>
 <body>
-<div id="myViewer"
-		var viewerInstance = null;
+<div id="cylindoView"></div>
+<script> var viewerInstance = null;
         var options = {
-	    'accountID': 4405,
+	    'accountID': 4965,
 	    'productCode': 'EMMA_ARMCHAIR',
 	    'features': ['UPHOLSTERY', 'YELLOW', 'LEGS', 'METAL_LEGS'],
-	    'containerID': 'cylindoViewerWrapper'
+	    'containerID': 'cylindoView'
         }
+		if(viewerInstance) { 
+viewerInstance.setFeatures(['UPHOLSTERY', 'BLACK', 'LEGS', 'METAL_LEGS'] );}
+
+
 
         if (cylindo) {
 	    cylindo.on('ready', function () {
 	   	viewerInstance = cylindo.viewer.create(options);
+
 	});
     }
-</div>
+</script>
 </body>
 </html>
