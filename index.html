@@ -1,12 +1,37 @@
 <!doctype html>
 <html>
+
 <head>
 <link rel="stylesheet" type="text/css" 
 href="https://viewer.cylindo.com/v4/viewer.min.css">
+<link rel="stylesheet" type="text/css" 
+href="./styles/configStyle.min.css">
 <script src="https://viewer.cylindo.com/v4/viewer.min.js"></script>
+
 </head>
+
 <body>
-<div id="cylindoView"></div>
+    <!-- define a div element that will hold the 360 HD Viewer -->
+<div class="column">
+  <div id="cylindoView"></div>
+</div>
+
+<!-- Variation Selector -->
+<div class="column small">
+  <p class="list-label">Upholstery</p>
+  <!-- the data-feature-type attribute is being used when changing features -->
+  <ul data-feature-type="UPHOLSTERY" class="variation-selector upholstery">
+    <!-- the data-feature-value attribute is being used when changing features -->
+    <li data-feature-value="MUSHROOM" class="variation selected" style="background: #797375"></li>
+    <li data-feature-value="EARTH" class="variation" style="background: #C5B7A2"></li>
+  </ul>
+  <p class="list-label">Legs Finish</p>
+  <ul data-feature-type="LEGS" class="variation-selector legs">
+    <li data-feature-value="METAL_LEGS" class="variation selected" style="background: #FAFAFA"></li>
+    <li data-feature-value="ROUNDLEG_OW" class="variation" style="background: #7D6143"></li>
+  </ul>
+</div>
+
 <script> var viewerInstance = null;
         var options = {
 	    'accountID': 4965,
@@ -14,17 +39,37 @@ href="https://viewer.cylindo.com/v4/viewer.min.css">
 	    'features': ['UPHOLSTERY', 'YELLOW', 'LEGS', 'METAL_LEGS'],
 	    'containerID': 'cylindoView'
         }
-		if(viewerInstance) { 
-viewerInstance.setFeatures(['UPHOLSTERY', 'BLACK', 'LEGS', 'METAL_LEGS'] );}
 
-
-
-        if (cylindo) {
+		if (cylindo) {
 	    cylindo.on('ready', function () {
 	   	viewerInstance = cylindo.viewer.create(options);
+		      
 
 	});
     }
+    
+    $(".variation").click( function() {
+  //remove the class "selected" from all li elements
+  $(this).parent().find("li").removeClass("selected");
+  //add the class "selected" to the current clicked element
+  $(this).addClass("selected");  
+  
+  //create array with values from the selected ones
+  var featureArray = [ 
+    //get the first feature type name
+    $(".upholstery").attr("data-feature-type"),
+    //get the feature value for the feature type above
+    $(".upholstery .selected").attr("data-feature-value"),
+    //get the second feature type name
+    $(".legs").attr("data-feature-type"),    
+    //get the feature value for the feature type above
+    $(".legs .selected").attr("data-feature-value"),
+  ];
+  //this viewer function sends an array with the new selected features
+  viewerInstance.setFeatures(featureArray);
+});
+
 </script>
+
 </body>
 </html>
