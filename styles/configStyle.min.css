@@ -49,7 +49,7 @@ hr {
 
 .variation-selector .variation:hover:before,
 .variation-selector .variation.selected:before{
-  content:"✓";
+  content:"OK";
   width:32px;
   height:32px;
   background:rgba(0,0,0,0.1);
